@@ -10,7 +10,7 @@ jobs:
     name: Fifter issue by title and send email
     steps: 
     - run: echo "🐧  ${{  github.event.issue.number }} "
-    - uses: xu-ms/github-actions-issue-to-open@simple-sync
+    - uses: xu-ms/github-actions-issue-to-open@test-python
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
         title: "${{ github.event.issue.title }}"
