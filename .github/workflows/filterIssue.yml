@@ -20,12 +20,9 @@ jobs:
           })
           return {
             title: data.title,
-            body: data.body
+            body: data.body，
+            created: data.created_at
           }
-    -  run: echo "🎉 ${{ context.issue.number }}"
-    -  run: echo "🎉 ${{ context.issue.title }}"
-    -  run: echo "🎉 ${{ context.issue.body }}"
-    -  run: echo "🎉 ${{ context.issue.created_at }}" 
     - uses: xu-ms/github-actions-issue-to-open@simple-sync
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
