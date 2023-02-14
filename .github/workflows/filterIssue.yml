@@ -11,6 +11,7 @@ jobs:
     steps: 
     - name: test-output
       run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+    - uses: actions/checkout@v3
     - uses: xu-ms/github-actions-issue-to-open@simple-sync
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
