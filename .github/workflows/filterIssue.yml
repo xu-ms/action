@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Fifter issue by title and send email
     steps: 
+    - uses: actions/checkout@v3
     - uses: actions/github-script@v5
       id: script
       with:
