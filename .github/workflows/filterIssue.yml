@@ -2,7 +2,7 @@ name: Fifter issue by title and send email
 
 on:
   issues:
-    types: [opend]
+    types: [opened]
 
 jobs:
   alert:
