@@ -1,0 +1,14 @@
+name: Fifter issue by title and send email
+
+on:
+  issues:
+    types: [opend]
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    name: Fifter issue by title and send email
+    steps:       
+    - uses: xu-ms/github-actions-issue-to-open@simple-sync
+      env:
+        github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
