@@ -9,9 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     name: Fifter issue by title and send email
     steps: 
-    - name: test-output
-      run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-    - uses: actions/checkout@v3
+    - uses: actions/github-script@v5
+      id: script
+      with:
+        script: |
+          const { data } = await github.issues.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number
+          })
+          return {
+            title: data.title,
+            body: data.body
+          }
+    -  run: echo "🎉 ${{ context.issue.number }}"
+    -  run: echo "🎉 ${{ context.issue.title }}"
+    -  run: echo "🎉 ${{ context.issue.body }}"
+    -  run: echo "🎉 ${{ context.issue.created_at }}" 
     - uses: xu-ms/github-actions-issue-to-open@simple-sync
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
+        title: "${{ steps.extract.outputs.title }}"
+        body: "${{ steps.extract.outputs.body }}"
+        created_at: "${{ steps.extract.outputs.created_at }}"
