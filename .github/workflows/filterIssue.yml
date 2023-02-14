@@ -9,24 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Fifter issue by title and send email
     steps: 
-    - uses: actions/checkout@v3
-    - uses: actions/github-script@v5
-      id: script
-      with:
-        script: |
-          const { data } = await github.issues.get({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number
-          })
-          return {
-            title: data.title,
-            body: data.body，
-            created: data.created_at
-          }
+    - run: echo "🐧  ${{  github.event.issue.number }} "
     - uses: xu-ms/github-actions-issue-to-open@simple-sync
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
-        title: "${{ steps.extract.outputs.title }}"
-        body: "${{ steps.extract.outputs.body }}"
-        created_at: "${{ steps.extract.outputs.created_at }}"
+        title: "${{ github.event.issue.title }}"
+        body: "${{ github.event.issue.body }}"
+        created_at: "${{ github.event.issue.created_at }}"
