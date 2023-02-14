@@ -8,7 +8,9 @@ jobs:
   alert:
     runs-on: ubuntu-latest
     name: Fifter issue by title and send email
-    steps:       
+    steps: 
+    - name: test-output
+      run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
     - uses: xu-ms/github-actions-issue-to-open@simple-sync
       env:
         github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
