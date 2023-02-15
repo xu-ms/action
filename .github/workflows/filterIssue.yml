@@ -13,11 +13,13 @@ jobs:
       id: script
       uses: xu-ms/github-actions-issue-to-open@my-test
       env:
-        title: "${{ github.event.issue.title }}"
-        body: "${{ github.event.issue.body }}"
-        created_at: "${{ github.event.issue.created_at }}"
-        number: "${{ github.event.issue.number }}"
-        html_url: "${{ github.event.issue.html_url }}"
+        env_issue: "${{ github.event.issue }}"
+        string_issue: " ${{ toJson(github.event.issue) }}"
+    - name: Print environment variables
+      run: |
+          echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
+          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
     - name: output
       run: echo "${{ steps.script.outputs.need_attention }}"
     - name: get issue info
