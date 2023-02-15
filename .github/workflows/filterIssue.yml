@@ -12,18 +12,11 @@ jobs:
     - name: filter issue by keyword
       id: script
       uses: xu-ms/github-actions-issue-to-open@my-test
-      env:
-        string_issue: " ${{ toJson(github.event.issue) }}"
-    - name: Print environment variables
-      run: |
-          echo "GITHUB_WORKFLOW: $GITHUB_WORKFLOW"
-          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
-          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-    - name: output
-      run: echo "${{ steps.script.outputs.need_attention }}"
     - name: get issue info
       if: ${{ steps.script.outputs.need_attention == 'true'}}
-      run: echo "The time was ${{ fromJSON(steps.script.outputs.issue_info)}} "
+      run: |
+        echo "The time was ${{ fromJSON(steps.script.outputs.issue_info)}} "
+        echo "The time was ${{ steps.script.outputs.issue_info}} "
     - name: do not need send
       if: ${{ steps.script.outputs.need_attention == 'false'}}
       run: echo "${{ github.event.issue.html_url }}"
