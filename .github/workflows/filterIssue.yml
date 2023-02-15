@@ -12,6 +12,8 @@ jobs:
     - name: filter issue by keyword
       id: script
       uses: xu-ms/github-actions-issue-to-open@my-test
+      with: 
+        email_password: ${{ secrets.EMAIL_PASSWORD }}
     - name: get issue info
       if: ${{ steps.script.outputs.need_attention == 'true'}}
       run: |
