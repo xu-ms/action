@@ -1,4 +1,4 @@
-name: Fifter issue by title and send email
+name: get security issue by title and body
 
 on:
   issues:
@@ -7,12 +7,22 @@ on:
 jobs:
   alert:
     runs-on: ubuntu-latest
-    name: Fifter issue by title and send email
+    name: get security issue by title and body
     steps: 
-    - run: echo "🐧  ${{  github.event.issue.number }} "
-    - uses: xu-ms/github-actions-issue-to-open@test-python
+    - name: filter issue by keyword
+      id: script
+      uses: xu-ms/github-actions-issue-to-open@my-test
       env:
-        github_token: "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}"  
         title: "${{ github.event.issue.title }}"
         body: "${{ github.event.issue.body }}"
         created_at: "${{ github.event.issue.created_at }}"
+        number: "${{ github.event.issue.number }}"
+        html_url: "${{ github.event.issue.html_url }}"
+    - name: output
+      run: echo "${{ steps.script.outputs.need_attention }}"
+    - name: get issue info
+      if: ${{ steps.script.outputs.need_attention == 'true'}}
+      run: echo "The time was ${{ fromJSON(steps.script.outputs.issue_info)}} "
+    - name: do not need send
+      if: ${{ steps.script.outputs.need_attention == 'false'}}
+      run: echo "${{ github.event.issue.html_url }}"
