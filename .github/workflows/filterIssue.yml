@@ -13,7 +13,6 @@ jobs:
       id: script
       uses: xu-ms/github-actions-issue-to-open@my-test
       env:
-        env_issue: "${{ github.event.issue }}"
         string_issue: " ${{ toJson(github.event.issue) }}"
     - name: Print environment variables
       run: |
